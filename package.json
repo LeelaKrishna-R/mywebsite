@@ -1,0 +1,30 @@
+{
+  "name": "krishnar-portfolio-next",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "check:routes": "node scripts/check-dup-pages.mjs",
+    "fmt": "prettier --write \"{app,components}/**/*.{js,jsx,ts,tsx,mdx,css}\"",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@mdx-js/loader": "^3.1.0",
+    "@next/mdx": "^14.2.5",
+    "@react-three/drei": "^9.97.3",
+    "@react-three/fiber": "^8.15.16",
+    "framer-motion": "^11.0.0",
+    "next": "14.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "resend": "^3.2.0"
+  },
+  "devDependencies": {
+    "globby": "^14.1.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5",
+    "prettier": "^3.6.2"
+  }
+}

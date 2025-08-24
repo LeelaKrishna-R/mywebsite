@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="700" viewBox="0 0 700 700">
+  <defs>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feOffset result="offOut" in="SourceAlpha" dx="0" dy="0"/>
+      <feGaussianBlur result="blurOut" in="offOut" stdDeviation="0"/>
+      <feBlend in="SourceGraphic" in2="blurOut" mode="normal"/>
+    </filter>
+  </defs>
+  <!-- Single-color vector for mask icon; Safari ignores fills and tints via link color -->
+  <rect width="700" height="700" fill="black"/>
+  <g filter="url(#shadow)">
+    <path d="M160 160 h120 l70 95 l70-95 h120 l-140 185 l140 185 h-120 l-71-96 l-71 96 h-118 l140-185z" fill="white"/>
+  </g>
+</svg>

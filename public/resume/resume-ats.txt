@@ -1,0 +1,28 @@
+LEELAKRISHNA RAVURI
+Denton, TX | 940.977.5465 | email@krishnar.xyz | LinkedIn: linkedin.com/in/leelakrishnaravuri | GitHub: github.com/LeelaKrishna-R
+
+PROFILE
+Master’s student in Artificial Intelligence at the University of North Texas with a foundation in Electronics and Communication Engineering. Skilled in data analysis, machine learning, and problem-solving. Passionate about leveraging AI to address real-world challenges.
+
+EDUCATION
+University of North Texas, Denton, TX — M.S. in Artificial Intelligence, GPA 3.0 (Expected Dec 2025)
+Relevant coursework: LLM Models; Data Analysis; Machine Learning Algorithms; NLP
+Kalasalingam University, Madurai, India — B.E. in Electronics & Communication Engineering, GPA 7.0
+Relevant coursework: Embedded Systems; VLSI; Signal Processing; Digital Image Processing
+
+TECHNICAL SKILLS
+Languages: JavaScript, Python, C, SQL, Matlab
+Frameworks: React, Next.js, Vue
+Databases: PostgreSQL, MongoDB, Redis
+Tools: Git, WebStorm, VS Code, Microsoft Office
+Operating Systems: Windows, Linux, macOS
+Certifications: SAP ABAP NetViewer 7.50
+
+PROJECTS
+Shero — Discord Bot — Node.js, Redis, MongoDB; sharding, metrics, dashboard; Next.js site; Cloudflare DNS/DDoS.
+Soil Nutrients Monitoring (IoT) — NPK sensor array + microcontroller; testing & debugging; crop/fertilizer recommendations.
+
+EXPERIENCE
+Caliber Embed — Intern (May–Aug 2023, Coimbatore)
+Diamond Pick — System Engineer (May–Aug 2019, Chennai)
+Discord Developer (2019–Present)
