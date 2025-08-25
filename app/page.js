@@ -2,7 +2,7 @@
 import BackToTop from "../components/BackToTop";
 import SocialBar from "../components/SocialBar";
 import ParallaxHero from "../components/ParallaxHero";
-import GitHubCard from "../components/GitHubCard";
+import GitHubCard from "../components/GithubCard";
 
 export default function HomePage() {
   return (
