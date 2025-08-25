@@ -2,7 +2,7 @@
 import Image from "next/image";
 
 const socials = [
-  { name: "GitHub", href: "https://github.com/LeelaKrishna-R", icon: "/socials/github.png" },
+  { name: "Spotify", href: "https://open.spotify.com/user/pz4y1pm74kjnteb9mz0lglgik", icon: "/socials/spotify.png" },
   { name: "Twitter", href: "https://twitter.com/leelakr90136330", icon: "/socials/twitter.png" },
   { name: "Instagram", href: "https://www.instagram.com/krishhbyte", icon: "/socials/instagram.png" },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/leelakrishnaravuri/", icon: "/socials/linkedin.png" },
