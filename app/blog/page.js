@@ -1,41 +1,58 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { getAllPosts } from "../../lib/posts";
 
-export const metadata = { title: "Blog — Leelakrishna Ravuri" };
-
 export default function BlogIndex() {
-  const posts = getAllPosts();
+  const [posts, setPosts] = useState([]);
+  const [openIndex, setOpenIndex] = useState(null);
 
-  function fmt(d) {
-    return new Date(d).toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "short",
-      day: "2-digit",
-    });
-  }
+  useEffect(() => {
+    async function loadPosts() {
+      const allPosts = await getAllPosts();
+      setPosts(allPosts);
+    }
+    loadPosts();
+  }, []);
+
+  const toggle = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   return (
-    <main className="container py-10">
-      <h1 className="text-3xl font-bold mb-6">Blog</h1>
-      <ul className="space-y-4">
-        {posts.map((p) => (
-          <li
-            key={p.slug}
-            className="p-4 rounded-lg border border-zinc-800 bg-zinc-900"
+    <main className="container mx-auto px-4 py-10">
+      <h1 className="text-4xl font-extrabold mb-8">Blog</h1>
+
+      <div className="space-y-4">
+        {posts.map((post, index) => (
+          <div
+            key={post.slug}
+            className={`blog-card ${openIndex === index ? "open" : ""}`}
+            onClick={() => toggle(index)}
           >
-            <Link href={`/blog/${p.slug}`}>
-              <div className="flex justify-between flex-wrap gap-2">
-                <span className="font-semibold text-purple-400 hover:underline">
-                  {p.title}
-                </span>
-                <span className="text-sm text-gray-400">
-                  {fmt(p.date)} · {p.author} · {p.readingTime}
-                </span>
-              </div>
+            {/* Title row */}
+            <Link
+              href={`/blog/${post.slug}`}
+              className="blog-title-link"
+              onClick={(e) => e.stopPropagation()} // prevent tile click
+            >
+              {post.title}
             </Link>
-          </li>
+
+            {/* Expandable meta */}
+            <div
+              className={`blog-meta ${
+                openIndex === index ? "expanded" : "collapsed"
+              }`}
+            >
+              <div>✍️ {post.author}</div>
+              <div>⏱ {post.readingTime}</div>
+              <div>📅 {post.date}</div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </main>
   );
 }

@@ -1,8 +1,8 @@
 ---
-title: "How I Built This Website from Scratch"
+title: "Trivia Game Project"
 date: "2025-08-19"
 author: "Leelakrishna Ravuri"
-readingTime: "4 min"
+readingTime: "6 min"
 ---
 
 # Dynamic Trivia Game with Semantic Web and Prolog

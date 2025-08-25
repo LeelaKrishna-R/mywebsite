@@ -1,7 +1,7 @@
 import { getAllPosts, getPostBySlug } from "../../../lib/posts";
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
+  const posts = await getAllPosts(); // ✅ await here
   return posts.map((post) => ({ slug: post.slug }));
 }
 
@@ -16,6 +16,7 @@ export default async function BlogPost({ params }) {
           {post.date} · {post.author} · {post.readingTime}
         </p>
 
+        {/* Render HTML safely */}
         <div
           className="prose prose-invert prose-lg max-w-none
                      prose-headings:font-bold prose-headings:tracking-tight
