@@ -238,6 +238,7 @@ footer { border-top:1px solid var(--border); padding:24px 0; color:var(--muted);
 .blog-meta.collapsed { max-height: 0; opacity: 0; transform: scaleY(0.9); overflow: hidden }
 .blog-meta.expanded { max-height: 200px; opacity: 1; transform: scaleY(1); margin-top: 10px }
 .blog-meta div { display: flex; align-items: center; gap: 8px }
+.blog-list { display: flex; flex-direction: column; gap: 12px; /* 👈 clean spacing */}
 
 /* --- Spotify Tile --- */
 .spotify-tile { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 18px; border-radius:16px; background:linear-gradient(145deg, rgba(155,111,227,0.15), rgba(189,147,249,0.08)); border:1px solid rgba(155, 111, 227, 0.25); backdrop-filter:blur(10px); text-decoration:none; transition: transform 0.25s ease, box-shadow 0.25s ease }
@@ -351,4 +352,8 @@ button.chip.active {
   color: #0f0f10 !important;
   border-color: transparent;
   box-shadow: 0 6px 16px rgba(189,147,249,.35);
+}
+.fade-out {
+  opacity: 0 !important;
+  transition: opacity 0.8s ease !important;
 }

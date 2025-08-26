@@ -26,7 +26,7 @@ export default function BlogIndex() {
     <main className="container mx-auto px-4 py-10">
       <h1 className="text-4xl font-extrabold mb-8">Blog</h1>
 
-      <div className="space-y-4">
+      <div className="blog-list">
         {posts.map((post, index) => (
           <div
             key={post.slug}
