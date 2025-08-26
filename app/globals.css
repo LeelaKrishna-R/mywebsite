@@ -227,3 +227,29 @@ html[data-theme='light']{
   .spotify-tile{width:100%;max-width:320px;margin:0 auto}
   footer{font-size:13px;padding:18px 0}
 }
+/* Fix skills category pills (they use .chip class, not .skills-filter) */
+button.chip {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: #ffffff !important;  /* force bright text */
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .15s, background .25s, border-color .25s, color .25s, box-shadow .25s;
+}
+
+button.chip:hover:not(.active) {
+  transform: translateY(-2px);
+  background: rgba(189,147,249,0.12);
+  border-color: var(--accent);
+  color: #ffffff !important;
+  box-shadow: 0 0 10px rgba(189,147,249,.25);
+}
+
+button.chip.active {
+  background: linear-gradient(135deg,var(--accent),var(--accent-2));
+  color: #0f0f10 !important; /* dark text on gradient */
+  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(189,147,249,.35);
+}
