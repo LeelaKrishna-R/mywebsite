@@ -236,7 +236,6 @@ html[data-theme='light']{
 .case-study ul { padding-left:20px; margin-top:8px; margin-bottom:0; line-height:1.6 }
 
 /* --- Cursor bubble --- */
-/* --- Cursor bubble --- */
 .cursor-bubble, .cursor-trail { 
   position:fixed; 
   pointer-events:none; 
@@ -261,6 +260,7 @@ html[data-theme='light']{
   background:#8be9fd; 
   box-shadow:0 0 20px #8be9fd, 0 0 40px rgba(139,233,253,0.6); 
   mix-blend-mode: lighten;
+  animation: pulseCursor 2.2s ease-in-out infinite;
 }
 
 .cursor-trail { 
@@ -270,9 +270,10 @@ html[data-theme='light']{
   opacity:0.75; 
   box-shadow:0 0 15px #bd93f9, 0 0 30px rgba(189,147,249,0.7); 
   mix-blend-mode: lighten;
+  animation: pulseCursor 2.4s ease-in-out infinite;
 }
 
-/* Light mode fix: make cursor darker & visible */
+/* Light mode fix: darker & visible */
 html[data-theme='light'] .cursor-main {
   background:#0891b2; /* stronger cyan */
   box-shadow:0 0 12px rgba(8,145,178,0.6), 0 0 28px rgba(8,145,178,0.45);
@@ -290,6 +291,13 @@ html[data-theme='light'] .cursor-trail {
 @media (hover: hover) and (pointer: fine) {
   html, body { cursor:none }
 }
+
+/* --- Cursor Animation --- */
+@keyframes pulseCursor {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.85; }
+}
+
 /* -------- Mobile Tweaks -------- */
 @media (max-width:640px){
   .hero{padding:48px 0 24px;text-align:center}
