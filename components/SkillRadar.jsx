@@ -37,17 +37,32 @@ export default function SkillRadar({
 
   return (
     <div style={{ display: "grid", placeItems: "center" }}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img" aria-label="Radar chart of skills">
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        role="img"
+        aria-label="Radar chart of skills"
+      >
         {/* grid rings */}
-        <polygon points={ringPath(1)} fill="none" stroke="rgba(255,255,255,.15)" />
-        <polygon points={ringPath(0.75)} fill="none" stroke="rgba(255,255,255,.12)" />
-        <polygon points={ringPath(0.5)} fill="none" stroke="rgba(255,255,255,.10)" />
-        <polygon points={ringPath(0.25)} fill="none" stroke="rgba(255,255,255,.08)" />
+        <polygon points={ringPath(1)} fill="none" stroke="var(--border)" />
+        <polygon points={ringPath(0.75)} fill="none" stroke="var(--border)" />
+        <polygon points={ringPath(0.5)} fill="none" stroke="var(--border)" />
+        <polygon points={ringPath(0.25)} fill="none" stroke="var(--border)" />
 
         {/* axes */}
         {skills.map((_, i) => {
           const [x, y] = radial(1, i);
-          return <line key={`axis-${i}`} x1={cx} y1={cy} x2={x} y2={y} stroke="rgba(255,255,255,.12)" />;
+          return (
+            <line
+              key={`axis-${i}`}
+              x1={cx}
+              y1={cy}
+              x2={x}
+              y2={y}
+              stroke="var(--border)"
+            />
+          );
         })}
 
         {/* polygon */}
@@ -57,13 +72,17 @@ export default function SkillRadar({
             <stop offset="100%" stopColor="var(--accent-2)" />
           </linearGradient>
         </defs>
-        <polygon points={polyPath} fill="rgba(189,147,249,.25)" stroke="url(#lr-grad)" strokeWidth="2" />
+        <polygon
+          points={polyPath}
+          fill="rgba(189,147,249,.25)"
+          stroke="url(#lr-grad)"
+          strokeWidth="2"
+        />
 
         {/* axis labels (clickable if link provided) */}
         {skills.map((s, i) => {
           const [x, y] = radial(1.13, i);
-          const anchor =
-            x < cx ? "end" : x > cx ? "start" : "middle";
+          const anchor = x < cx ? "end" : x > cx ? "start" : "middle";
           const dy = y < cy ? "-2" : "14";
           const label = (
             <text
