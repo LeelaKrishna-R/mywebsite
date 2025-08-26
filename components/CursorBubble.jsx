@@ -1,52 +1,57 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function CursorBubble() {
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [trailPos, setTrailPos] = useState({ x: 0, y: 0 });
+
   useEffect(() => {
-    // Disable entirely on touch devices (iOS/Android)
-    const isTouch =
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0 ||
-      navigator.msMaxTouchPoints > 0;
+    // detect if hover/fine pointer is supported (desktop only)
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setIsDesktop(mediaQuery.matches);
 
-    if (isTouch) return; // do not run cursor on mobile/tablet
-
-    const main = document.createElement("div");
-    const trail = document.createElement("div");
-    main.className = "cursor-main";
-    trail.className = "cursor-trail";
-    document.body.appendChild(main);
-    document.body.appendChild(trail);
-
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let trailX = mouseX;
-    let trailY = mouseY;
-
-    const move = (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
-    window.addEventListener("mousemove", move);
-
-    const animate = () => {
-      // linear interpolation (smooth follow)
-      trailX += (mouseX - trailX) * 0.15;
-      trailY += (mouseY - trailY) * 0.15;
-
-      main.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
-      trail.style.transform = `translate(${trailX}px, ${trailY}px) translate(-50%, -50%)`;
-
-      requestAnimationFrame(animate);
-    };
-    animate();
-
-    return () => {
-      window.removeEventListener("mousemove", move);
-      main.remove();
-      trail.remove();
-    };
+    const handleChange = (e) => setIsDesktop(e.matches);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  return null;
+  useEffect(() => {
+    if (!isDesktop) return;
+
+    const handleMove = (e) => {
+      setPos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, [isDesktop]);
+
+  // trail lags behind main
+  useEffect(() => {
+    if (!isDesktop) return;
+
+    const id = requestAnimationFrame(function animate() {
+      setTrailPos((prev) => ({
+        x: prev.x + (pos.x - prev.x) * 0.12,
+        y: prev.y + (pos.y - prev.y) * 0.12,
+      }));
+      requestAnimationFrame(animate);
+    });
+    return () => cancelAnimationFrame(id);
+  }, [isDesktop, pos]);
+
+  if (!isDesktop) return null; // 🚫 don’t render on touch devices
+
+  return (
+    <>
+      <div
+        className="cursor-main"
+        style={{ left: pos.x, top: pos.y }}
+      />
+      <div
+        className="cursor-trail"
+        style={{ left: trailPos.x, top: trailPos.y }}
+      />
+    </>
+  );
 }
