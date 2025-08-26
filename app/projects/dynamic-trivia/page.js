@@ -1,15 +1,14 @@
+
 import NavBar from "../../../components/NavBar";
 import BackToTop from "../../../components/BackToTop";
 import RootClient from "../../../components/RootClient";
 
-export const metadata = { 
-  title: "Dynamic Trivia Content Generation — Case Study" 
-};
+export const metadata = { title: "Dynamic Trivia Content Generation — Case Study" };
 
-export default function CaseStudy() {
+export default function CaseStudy(){
   return (
     <div>
-      <RootClient />
+      <RootClient/>
       <NavBar />
       <main>
         <section className="reveal">
@@ -26,7 +25,7 @@ export default function CaseStudy() {
             </ul>
             <h3>Results</h3>
             <p>Outcomes, metrics, or screenshots.</p>
-            <div className="cta" style={{ marginTop: 14 }}>
+            <div className="cta" style={marginTop:14}>
               <a className="btn" href="/projects">← Back to projects</a>
             </div>
           </div>

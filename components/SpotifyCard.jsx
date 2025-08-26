@@ -17,7 +17,7 @@ export default function SpotifyCard() {
     }
 
     fetchTrack();
-    const interval = setInterval(fetchTrack, 8000); // refresh every 8s
+    const interval = setInterval(fetchTrack, 8000);
     return () => clearInterval(interval);
   }, []);
 
@@ -28,31 +28,29 @@ export default function SpotifyCard() {
       href={track.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="spotify-tile"
+      className="spotify-tile compact"
     >
       {track.albumArt && (
         <Image
           src={track.albumArt}
           alt={track.name}
-          width={54}
-          height={54}
+          width={44}
+          height={44}
           className="spotify-album"
         />
       )}
 
       <div className="spotify-info">
-        {/* Status as title */}
         <span className="spotify-status-title">
           {track.isPlaying ? "Currently listening" : "Last listened"}
         </span>
-
         <span className="spotify-title">{track.name}</span>
         <span className="spotify-artist">{track.artist}</span>
       </div>
 
       {track.isPlaying && (
-        <div className="spotify-equalizer">
-          {Array.from({ length: 6 }).map((_, i) => (
+        <div className="spotify-equalizer small">
+          {Array.from({ length: 15 }).map((_, i) => (
             <span key={i}></span>
           ))}
         </div>

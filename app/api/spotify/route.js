@@ -17,7 +17,7 @@ function formatArtists(artists) {
 // 🔧 Helper: Trim track title
 function formatTitle(title) {
   if (!title) return "";
-  return title.length > 30 ? title.slice(0, 30) + "…" : title;
+  return title.length > 20 ? title.slice(0, 20) + "…" : title;
 }
 
 async function getAccessToken() {
