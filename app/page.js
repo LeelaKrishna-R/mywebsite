@@ -103,9 +103,7 @@ export default function HomePage() {
           </div>
         </section>
       </main>
-
       <BackToTop />
-
       <style jsx>{`
         @media (max-width: 900px) {
           .hero :global(.hero-grid) {

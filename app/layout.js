@@ -1,8 +1,6 @@
 import "./globals.css";
-import ThemeToggle from "../components/ThemeToggle";
-import HomePill from "../components/HomePill";
-import NavBar from "../components/NavBar";
-import CursorBubble from "../components/CursorBubble";
+import { ThemeProvider } from "../components/ThemeProvider";
+import BodyWrapper from "../components/BodyWrapper";
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
@@ -35,7 +33,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Fonts & Devicon */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,13 +47,9 @@ export default function RootLayout({ children }) {
           href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
         />
       </head>
-      <body>
-        <NavBar />
-        {children}
-
-        {/* Cursor bubble always rendered above all content */}
-        <CursorBubble />
-      </body>
+      <ThemeProvider>
+        <BodyWrapper>{children}</BodyWrapper>
+      </ThemeProvider>
     </html>
   );
 }

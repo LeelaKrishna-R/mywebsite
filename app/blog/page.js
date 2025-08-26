@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { getAllPosts } from "../../lib/posts";
+import { useTheme } from "../../components/ThemeProvider";
 
 export default function BlogIndex() {
+  const { theme } = useTheme();   // ensures re-render when theme changes
   const [posts, setPosts] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
 
@@ -31,16 +33,14 @@ export default function BlogIndex() {
             className={`blog-card ${openIndex === index ? "open" : ""}`}
             onClick={() => toggle(index)}
           >
-            {/* Title row */}
             <Link
               href={`/blog/${post.slug}`}
               className="blog-title-link"
-              onClick={(e) => e.stopPropagation()} // prevent tile click
+              onClick={(e) => e.stopPropagation()}
             >
               {post.title}
             </Link>
 
-            {/* Expandable meta */}
             <div
               className={`blog-meta ${
                 openIndex === index ? "expanded" : "collapsed"
