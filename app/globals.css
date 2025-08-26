@@ -11,7 +11,6 @@ html,body {
   background:var(--bg); color:var(--text);
   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
   line-height:1.6; scroll-behavior:smooth;
-  cursor:none; /* custom cursor enabled */
 }
 a { color:var(--accent); text-decoration:none }
 img { max-width:100%; height:auto }
@@ -22,7 +21,7 @@ img { max-width:100%; height:auto }
 .nav { position:sticky; top:0; background:rgba(15,15,16,.8); backdrop-filter:blur(8px); z-index:50; border-bottom:1px solid var(--border) }
 .nav-inner { display:flex; align-items:center; justify-content:space-between; padding:14px 0 }
 .brand { display:flex; align-items:center; gap:10px; font-family:"Space Grotesk",Inter,sans-serif }
-.brand-logo { width:36px; height:36px; border-radius:10px; overflow:hidden; border:1px solid var(--border); display:grid;place-items:center }
+.brand-logo { width:36px; height:36px; border-radius:10px; overflow:hidden; border:1px solid var(--border) }
 .brand span { font-weight:700; letter-spacing:.3px }
 
 /* Desktop nav */
@@ -32,9 +31,7 @@ img { max-width:100%; height:auto }
   .nav-links a:hover { border-color:var(--border); background:var(--surface); transform:translateY(-2px) }
 }
 .menu-btn { display:none; transition:transform .3s; font-size:20px }
-@media (hover: hover) and (pointer: fine) {
-  .menu-btn:hover { transform:rotate(90deg) }
-}
+.menu-btn:hover { transform:rotate(90deg) }
 
 /* Hero */
 .hero { padding:72px 0 32px }
@@ -123,8 +120,8 @@ footer { border-top:1px solid var(--border); padding:24px 0; color:var(--muted);
   .projects{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width: 640px){
-  .nav-links{display:none}
-  .nav-links.open{display:flex;flex-direction:column;background:var(--surface-2);position:absolute;top:60px;right:20px;padding:12px;border-radius:12px;box-shadow:var(--shadow);animation:slideDown .3s ease forwards}
+  .nav-links{display:none;flex-direction:column;background:var(--surface-2);position:absolute;top:60px;right:20px;padding:12px;border-radius:12px;box-shadow:var(--shadow)}
+  .nav-links.open{display:flex;animation:slideDown .3s ease forwards}
   .menu-btn{display:block;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:10px}
   .projects{grid-template-columns:1fr}
 }
@@ -209,11 +206,24 @@ html[data-theme='light']{
 .case-study .cs-section h3 { margin-bottom:10px; font-size:20px; color:var(--accent) }
 .case-study ul { padding-left:20px; margin-top:8px; margin-bottom:0; line-height:1.6 }
 
-/* cursor bubble */ 
-.cursor-bubble, .cursor-trail { position:fixed; pointer-events:none; border-radius:50%; transform:translate(-50%,-50%); transition:transform 0.18s ease-out, opacity 0.35s ease-out; z-index:9999 }
-.cursor-main, .cursor-trail { position:fixed; border-radius:50%; pointer-events:none; transform:translate(-50%,-50%); z-index:9999; mix-blend-mode:lighten }
+/* --- Cursor bubble --- */
+.cursor-bubble, .cursor-trail {
+  position:fixed; pointer-events:none; border-radius:50%;
+  transform:translate(-50%,-50%);
+  transition:transform 0.18s ease-out, opacity 0.35s ease-out;
+  z-index:9999;
+}
+.cursor-main, .cursor-trail {
+  position:fixed; border-radius:50%; pointer-events:none;
+  transform:translate(-50%,-50%); z-index:9999; mix-blend-mode:lighten;
+}
 .cursor-main { width:22px; height:22px; background:#8be9fd; box-shadow:0 0 20px #8be9fd, 0 0 40px rgba(139,233,253,0.6) }
 .cursor-trail { width:12px; height:12px; background:#bd93f9; opacity:0.75; box-shadow:0 0 15px #bd93f9, 0 0 30px rgba(189,147,249,0.7) }
+
+/* Hide cursor ONLY on desktop (not touch devices) */
+@media (hover: hover) and (pointer: fine) {
+  html, body { cursor:none }
+}
 
 /* -------- Mobile Tweaks -------- */
 @media (max-width:640px){
