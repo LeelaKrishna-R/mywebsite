@@ -1,7 +1,8 @@
 import "./globals.css";
 import ThemeToggle from "../components/ThemeToggle";
 import HomePill from "../components/HomePill";
-import NavBar from "../components/NavBar"
+import NavBar from "../components/NavBar";
+import CursorBubble from "../components/CursorBubble";
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
@@ -30,7 +31,6 @@ export const metadata = {
     images: ["/twitter-image.png"]
   },
   manifest: "/manifest.webmanifest",
-  //themeColor: "#0f0f10"
 };
 
 export default function RootLayout({ children }) {
@@ -52,7 +52,9 @@ export default function RootLayout({ children }) {
       <body>
         <NavBar />
         {children}
-        
+
+        {/* Cursor bubble always rendered above all content */}
+        <CursorBubble />
       </body>
     </html>
   );
