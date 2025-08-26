@@ -8,11 +8,12 @@ export default function NavBar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  const NavItem = ({ href, children }) => (
+  const NavItem = ({ href, children, ...props }) => (
     <Link
       href={href}
       aria-current={pathname === href ? "page" : undefined}
       className="nav-link"
+      {...props}
     >
       {children}
     </Link>
@@ -43,11 +44,11 @@ export default function NavBar() {
         <button
           className="menu-btn"
           onClick={() => setOpen((v) => !v)}
-          aria-label="Open menu"
+          aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           aria-controls="mobile-menu"
         >
-          Menu
+          {open ? "✕" : "☰"}
         </button>
       </div>
 
@@ -115,10 +116,15 @@ export default function NavBar() {
           color: inherit;
           text-decoration: none;
         }
-        .nav-link:hover,
         .nav-link[aria-current="page"] {
           border-color: var(--border);
           background: var(--surface);
+        }
+        @media (hover: hover) and (pointer: fine) {
+          .nav-link:hover {
+            border-color: var(--border);
+            background: var(--surface);
+          }
         }
         .toggle-wrap {
           margin-left: 8px;
@@ -132,6 +138,7 @@ export default function NavBar() {
           color: var(--text);
           padding: 8px 12px;
           border-radius: 10px;
+          font-size: 20px;
         }
         .mobile-menu {
           display: none;
