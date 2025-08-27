@@ -50,7 +50,10 @@ export default function RootLayout({ children }) {
       </head>
       <ThemeProvider>
         <BodyWrapper>
-          {children}
+          {/* Wrap children in main tag for proper footer placement */}
+          <main className="main-content">
+            {children}
+          </main>
 
           {/* Footer */}
           <footer className="site-footer">

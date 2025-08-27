@@ -107,7 +107,7 @@ export default function ContactForm() {
           <input
             required
             name="name"
-            placeholder="Ada Lovelace"
+            placeholder="Leelakrishna Ravuri"
             style={{
               width: "100%",
               padding: "12px",
@@ -125,7 +125,7 @@ export default function ContactForm() {
             required
             type="email"
             name="email"
-            placeholder="you@example.com"
+            placeholder="your@example.com"
             style={{
               width: "100%",
               padding: "12px",
