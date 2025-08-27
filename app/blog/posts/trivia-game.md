@@ -2,7 +2,7 @@
 title: "Trivia Game Project"
 date: "2025-08-19"
 author: "Leelakrishna Ravuri"
-readingTime: "6 min"
+readingTime: "2 min"
 ---
 
 # Dynamic Trivia Game with Semantic Web and Prolog

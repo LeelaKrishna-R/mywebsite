@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { getAllPosts } from "../../lib/posts";
-import { useTheme } from "../../components/ThemeProvider";
+import { getAllPosts } from "../../lib/posts"; // server function
 
 export default function BlogIndex() {
-  const { theme } = useTheme();   // ensures re-render when theme changes
   const [posts, setPosts] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
 
@@ -31,16 +29,14 @@ export default function BlogIndex() {
           <div
             key={post.slug}
             className={`blog-card ${openIndex === index ? "open" : ""}`}
-            onClick={() => toggle(index)}
+            onClick={() => toggle(index)} // toggle expand
           >
-            <Link
-              href={`/blog/${post.slug}`}
-              className="blog-title-link"
-              onClick={(e) => e.stopPropagation()}
-            >
+            {/* Title links directly to blog page */}
+            <Link href={`/blog/${post.slug}`} className="blog-title-link">
               {post.title}
             </Link>
 
+            {/* Meta info toggle */}
             <div
               className={`blog-meta ${
                 openIndex === index ? "expanded" : "collapsed"
@@ -49,6 +45,7 @@ export default function BlogIndex() {
               <div>✍️ {post.author}</div>
               <div>⏱ {post.readingTime}</div>
               <div>📅 {post.date}</div>
+         
             </div>
           </div>
         ))}

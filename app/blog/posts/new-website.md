@@ -1,34 +1,131 @@
 ---
-title: "New NextJs Portfolio"
+title: "New Website UI"
 date: "2025-08-19"
 author: "Leelakrishna Ravuri"
 readingTime: "4 min"
 ---
 
-## Introduction
-This portfolio was designed with the intention of creating a professional yet minimal digital identity. Instead of adopting pre-built templates, the site was engineered from first principles using **Next.js 14**, ensuring performance and scalability. CSS custom properties define a consistent theme and visual rhythm, while a global layout guarantees uniform navigation and structure. The result is a system that feels cohesive and intentional rather than fragmented.
+## 🌐 Introduction
+When I started redesigning my portfolio’s **UI**, my vision was to build something that feels both **professional** and **personal**.  
+No pre-built templates, no bloated frameworks — just **Next.js 14**, carefully crafted **CSS variables**, and a design system that adapts to every device and user preference.  
 
-## Design Principles
-The visual design follows minimalism, with deliberate use of spacing, muted color palettes, and accent hues for clarity. **System-based theming** ensures that the portfolio respects user device preferences, reducing friction and avoiding redundant UI elements. Smooth **Framer Motion animations** are applied sparingly to create continuity between interactions without overwhelming content. Each design choice emphasizes usability and coherence over ornamental complexity.
+The result? A UI that’s **minimal, fast, and interactive**, while reflecting my personality as a developer.  
 
-## Core Implementation
-1. **Layout and Navigation**  
-   The global navigation bar is defined in the root layout, ensuring every page shares the same structural backbone. This eliminates redundancy and enforces a consistent user experience. The navigation is lightweight and styled with CSS variables to maintain visual uniformity.  
+---
 
-2. **Hero Section**  
-   The landing section combines **textual hierarchy** (kicker, headline, description) with a **parallax-enabled image** for depth. The avatar replaces a brand logo to add personality, while grid-based layout ensures proportional balance. The parallax layer is lightweight, leveraging GPU-accelerated transforms for performance.  
+## 🎨 Design Principles
+The new UI is grounded in three key principles:  
 
-3. **Projects and Cards**  
-   Project showcases are implemented with **interactive flip cards**. A state lock ensures that only one card can open at a time, reducing cognitive load. The flip animation uses CSS 3D transforms with backface visibility management, while careful image sizing prevents distortion across cards.  
+1. **Minimalism First** ✨  
+   Less clutter, more focus. Muted backgrounds and clean grids create visual balance.  
 
-4. **Blog System**  
-   Blog posts are written in **Markdown with MDX support**, enabling integration of React components if needed. Each entry contains YAML frontmatter for metadata, which Next.js parses at build time for rendering dates, authors, and tags. This approach keeps content authoring simple while remaining extensible.  
+2. **System-Based Theming** 🌓  
+   Dark and Light modes adapt to the user’s OS preferences with smooth transitions.  
 
-5. **Resume Integration**  
-   The resume page provides both an **ATS-optimized version** (for automated parsing by employers) and an **original downloadable copy**. This dual system ensures that the portfolio serves both functional hiring workflows and human readability.  
+3. **Motion with Purpose** 🎬  
+   **Framer Motion** animations are used sparingly — just enough to guide attention without distracting.  
 
-6. **External Integrations**  
-   A **Spotify widget** fetches real-time track data via the Web API, updated at intervals to reflect the currently playing song. **GitHub statistics** are displayed using a custom card that queries the public API for repositories and contribution metrics. A **floating social block** ensures constant visibility of key links without overwhelming the hero layout.
+> “Every pixel should have a reason to exist.”  
 
-## Conclusion
-This portfolio demonstrates how targeted design and technical choices can produce a system that is both lightweight and expressive. By prioritizing minimalism, scalability, and functional integrations, it maintains professional clarity while enabling future enhancements such as advanced animations, detailed project write-ups, or extended blog content. The end result is not just a static portfolio, but a living system adaptable to growth.
+---
+
+## ⚙️ Core Implementation
+
+### 🧭 Layout & Navigation
+The navigation bar is **global**, sticky, and lightweight.  
+It ensures every page feels like part of the same system:  
+
+```js
+<nav className="nav">
+  <div className="nav-inner">
+    <div className="brand">🚀 Leelakrishna Ravuri</div>
+    <div className="nav-links">
+      <a href="/skills">Skills</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog">Blog</a>
+    </div>
+  </div>
+</nav>
+```
+
+---
+
+### 🎯 Hero Section
+The landing section uses a **text hierarchy** (kicker → headline → description) alongside a **parallax avatar**:  
+
+- Avatar replaces a logo → adding **personality**  
+- Grid-based layout → ensures proportional balance  
+- GPU-accelerated transforms → buttery-smooth parallax  
+
+![Hero Demo](images/website_hero.png)
+
+---
+
+### 🗂️ Projects Showcase
+Projects are displayed using **interactive flip cards**:  
+
+```css
+.card-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(.4,.2,.2,1);
+}
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+```
+
+- Only one card flips open at a time (state lock).  
+- Smooth 3D transitions with backface visibility management.  
+- **Consistent aspect ratios** prevent stretched thumbnails.  
+
+---
+
+### ✍️ Blog System
+My blogs are powered by **Markdown + MDX**:  
+
+- YAML frontmatter → title, author, date, reading time.  
+- MDX → allows embedding React components inside blog posts.  
+- Future-proof → new content can be added without touching code.  
+
+Example frontmatter:  
+
+```yaml
+---
+title: "New Website UI"
+date: "2025-08-19"
+author: "Leelakrishna Ravuri"
+readingTime: "4 min"
+---
+```
+
+---
+
+### 📄 Resume Integration
+The Resume page now has **two options**:  
+- **ATS-Optimized PDF** → perfect for recruiters & parsing software.  
+- **Original Styled Version** → downloadable, human-readable copy.  
+
+Both are accessible from the UI in a clean, distraction-free layout.  
+
+---
+
+### 🎶 & 📊 External Integrations
+- **Spotify Widget** → fetches my currently playing track 🎧  
+- **GitHub Card** → displays repo stats & contributions 📈  
+- **Floating Social Bar** → ensures links are always visible 🔗  
+
+This makes the portfolio feel **alive and connected**, rather than static.  
+
+---
+
+## 🚀 Conclusion
+The new **Website UI** is not just about looks — it’s about creating an interface that’s:  
+
+- 🕶️ Minimal but expressive  
+- ⚡ Fast and scalable with Next.js  
+- 📱 Mobile-first and adaptive  
+- 🎯 Interactive where it matters  
+
+It represents the next step in building a **living portfolio system** — adaptable to future growth, whether that’s more advanced animations, deep-dives into projects, or new blog series.  
+
+![Celebration](https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif)

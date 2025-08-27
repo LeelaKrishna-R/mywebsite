@@ -6,7 +6,7 @@ export default function ExampleContact(){
     <form className="contact-card" style={{maxWidth:'680px'}} onSubmit={onSubmit}>
       <div style={{display:'grid', gap:'12px'}}>
         <label><span className="small muted">Your name</span><br/>
-          <input placeholder="Ada Lovelace" style={{width:'100%',padding:'12px',borderRadius:'10px',border:'1px solid var(--border)',background:'var(--surface)',color:'var(--text)'}}/>
+          <input placeholder="Leelakrishna Ravuri" style={{width:'100%',padding:'12px',borderRadius:'10px',border:'1px solid var(--border)',background:'var(--surface)',color:'var(--text)'}}/>
         </label>
         <label><span className="small muted">Email</span><br/>
           <input type="email" placeholder="you@example.com" style={{width:'100%',padding:'12px',borderRadius:'10px',border:'1px solid var(--border)',background:'var(--surface)',color:'var(--text)'}}/>

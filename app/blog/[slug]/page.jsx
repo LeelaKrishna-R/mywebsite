@@ -1,7 +1,8 @@
+import Link from "next/link";
 import { getAllPosts, getPostBySlug } from "../../../lib/posts";
 
 export async function generateStaticParams() {
-  const posts = await getAllPosts(); // ✅ await here
+  const posts = await getAllPosts();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
@@ -11,12 +12,19 @@ export default async function BlogPost({ params }) {
   return (
     <main className="container mx-auto px-4 py-10">
       <article className="max-w-3xl mx-auto p-8 rounded-2xl shadow-lg bg-zinc-900/50 backdrop-blur">
+        {/* Back Button */}
+        <Link
+          href="/blog"
+          className="inline-block mb-6 text-purple-400 hover:text-purple-300 transition-colors"
+        >
+          ← Back to Blogs
+        </Link>
+
         <h1 className="text-4xl font-extrabold mb-2">{post.title}</h1>
         <p className="text-sm text-gray-400 mb-8">
           {post.date} · {post.author} · {post.readingTime}
         </p>
 
-        {/* Render HTML safely */}
         <div
           className="prose prose-invert prose-lg max-w-none
                      prose-headings:font-bold prose-headings:tracking-tight
