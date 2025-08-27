@@ -1,6 +1,7 @@
 import "./globals.css";
 import { ThemeProvider } from "../components/ThemeProvider";
 import BodyWrapper from "../components/BodyWrapper";
+import Link from "next/link";
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
@@ -48,7 +49,25 @@ export default function RootLayout({ children }) {
         />
       </head>
       <ThemeProvider>
-        <BodyWrapper>{children}</BodyWrapper>
+        <BodyWrapper>
+          {children}
+
+          {/* Footer */}
+          <footer className="site-footer">
+            <div className="footer-inner">
+              <p>
+                © {new Date().getFullYear()} Leelakrishna Ravuri. All rights reserved.{" "}
+                <Link
+                  href="https://github.com/LeelaKrishna-R/mywebsite/blob/main/LICENSE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  MIT License
+                </Link>
+              </p>
+            </div>
+          </footer>
+        </BodyWrapper>
       </ThemeProvider>
     </html>
   );

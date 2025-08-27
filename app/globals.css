@@ -560,3 +560,34 @@ html[data-theme='light'] .token.class-name { color: #8250df; }
 html[data-theme='light'] .token.operator,
 html[data-theme='light'] .token.entity,
 html[data-theme='light'] .token.url { color: #0969da; }
+
+/* ============================================
+   SITE FOOTER
+=============================================*/
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 0;
+  margin-top: 40px;
+  text-align: center;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.site-footer a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 6px;
+}
+
+.site-footer a:hover {
+  color: var(--accent-2);
+  text-decoration: underline;
+}
+
+.footer-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 16px;
+}
