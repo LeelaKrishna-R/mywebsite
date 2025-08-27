@@ -473,7 +473,7 @@ html[data-theme='dark'] pre[class*="language-"] {
 
 /* Light mode */
 html[data-theme='light'] pre[class*="language-"] {
-  background: #ffffff; /* pure white */
+  background: #f0f2f5; /* slightly darker so it’s visible */
   color: #24292f;
   border: 1px solid #d0d7de;
   border-radius: 10px;
@@ -483,8 +483,9 @@ html[data-theme='light'] pre[class*="language-"] {
   font-size: 14px;
   line-height: 1.6;
   margin: 1.25em 0;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
 }
+
 
 
 
