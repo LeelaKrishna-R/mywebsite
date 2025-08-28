@@ -12,6 +12,12 @@ function deactivateOthers(except) {
   activeEl = except || null;
 }
 
+// helper function to trim text
+function trimText(text, maxLength = 120) {
+  if (!text) return "";
+  return text.length > maxLength ? text.slice(0, maxLength).trim() + "…" : text;
+}
+
 export default function ProjectCard({
   title,
   desc,
@@ -19,6 +25,8 @@ export default function ProjectCard({
   links = [],
   backTitle = "Details",
   backText = "More details coming soon.",
+  trimLength = 120,
+  backTrimLength = 160,
 }) {
   const cardRef = useRef(null);
   const [active, setActive] = useState(false);
@@ -77,20 +85,23 @@ export default function ProjectCard({
       onKeyDown={onKeyDown}
     >
       <div className="card-inner">
-        {/* Front */}
+        {/* FRONT */}
         <div className="card-face front">
           <div className="body">
             <h3>{title}</h3>
-            <p>{desc}</p>
+
+            {/* Description */}
+            <p className="desc">{trimText(desc, trimLength)}</p>
+
+            {/* Tags */}
             <div className="tags">
               {tags.map((t, i) => (
                 <span className="tag" key={i}>{t}</span>
               ))}
             </div>
-            <div
-              style={{ marginTop: 12, display: "flex", gap: "10px", flexWrap: "wrap" }}
-              onClick={(e) => e.stopPropagation()}
-            >
+
+            {/* Actions */}
+            <div className="actions" onClick={(e) => e.stopPropagation()}>
               {links.map((l, i) => (
                 <a
                   className="btn"
@@ -106,10 +117,10 @@ export default function ProjectCard({
           </div>
         </div>
 
-        {/* Back */}
+        {/* BACK */}
         <div className="card-face back">
           <h4 style={{ marginTop: 0 }}>{backTitle}</h4>
-          <p>{backText}</p>
+          <p>{trimText(backText, backTrimLength)}</p>
         </div>
       </div>
     </article>

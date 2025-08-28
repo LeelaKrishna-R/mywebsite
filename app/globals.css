@@ -190,39 +190,111 @@ section { padding:48px 0; border-top:1px solid var(--border) }
 /* ============================================
    PROJECTS
 =============================================*/
-.projects { display:grid; grid-template-columns:1fr; gap:20px }
-.card { perspective:1000px; position:relative; height:100% }
-.card-inner {
-  position:relative; width:100%; height:100%;
-  transform-style:preserve-3d;
-  transition:transform .6s cubic-bezier(.4,.2,.2,1);
-  min-height:300px;
-  box-shadow:0 8px 20px rgba(0,0,0,.3)
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  align-items: stretch;   /* ✅ all cards equal height */
 }
-.card.flipped .card-inner { transform:rotateY(180deg); box-shadow:0 10px 30px rgba(0,0,0,.5) }
-.card-face {
-  position:absolute; inset:0; width:100%; height:100%; backface-visibility:hidden;
-  border-radius:var(--radius); background:var(--surface); border:1px solid var(--border);
-  display:flex; flex-direction:column; overflow:hidden
-}
-.card-face.front { z-index:2 }
-.card-face.back { transform:rotateY(180deg); background:var(--surface-2); padding:16px }
-.thumb { position:relative; width:100%; aspect-ratio:16/9; border-bottom:1px solid var(--border); overflow:hidden }
-@supports not (aspect-ratio:16/9) {
-  .thumb { padding-top:56.25% }
-  .thumb-img { position:absolute; top:0; left:0; width:100%; height:100% }
-}
-.thumb-img { width:100%; height:100%; object-fit:contain }
-.body { padding:16px; flex:1; display:flex; flex-direction:column; gap:10px }
-.tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:auto }
-.tag { font-size:12px; padding:6px 10px; background:rgba(189,147,249,.12); border:1px solid rgba(189,147,249,.35); color:var(--accent); border-radius:999px }
 
+.card {
+  perspective: 1000px;
+  position: relative;
+  height: 100%;
+  min-height: 420px;      /* ✅ consistent block size */
+  display: flex;
+}
+
+.card-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(.4,.2,.2,1);
+}
+
+.card.active.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.card-face.front {
+  background: var(--surface);
+}
+
+.card-face.back {
+  transform: rotateY(180deg);
+  background: var(--surface-2);
+  padding: 20px;
+}
+
+/* FRONT BODY SPLIT INTO ZONES */
+.card-face.front .body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  gap: 12px;
+}
+
+.card-face.front .body h3 {
+  margin-top: 0;
+}
+
+/* description zone (flex-shrink so it won’t push tags/buttons away) */
+.card-face.front .body p {
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-height: 40px;  /* ✅ ensures baseline space across cards */
+  line-height: 1.4;
+}
+
+/* tags zone locked before actions */
+.card-face.front .body .tags {
+  margin-top: auto; /* ✅ pushes down if desc is short */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* actions always pinned to bottom */
+.card-face.front .body .actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+/* TAG STYLING */
+.tag {
+  font-size: 12px;
+  padding: 6px 10px;
+  background: rgba(189,147,249,.12);
+  border: 1px solid rgba(189,147,249,.35);
+  color: var(--accent);
+  border-radius: 999px;
+}
+
+/* MEDIA QUERIES */
 @media (min-width:600px) {
-  .projects { grid-template-columns:repeat(2,1fr) }
+  .projects { grid-template-columns: repeat(2,1fr); }
 }
 @media (min-width:1000px) {
-  .projects { grid-template-columns:repeat(auto-fit,minmax(280px,1fr)) }
+  .projects { grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); }
 }
+
 
 /* ============================================
    CONTACT + SOCIALS
@@ -424,7 +496,7 @@ html[data-theme='light'] :not(pre) > code {
 html[data-theme='light'] .cursor-main { background:#0891b2; box-shadow:0 0 12px rgba(8,145,178,0.6), 0 0 28px rgba(8,145,178,0.45); mix-blend-mode: multiply; }
 html[data-theme='light'] .cursor-trail { background:#7c3aed; opacity:0.7; box-shadow:0 0 12px rgba(124,58,237,0.55), 0 0 26px rgba(124,58,237,0.45); mix-blend-mode: multiply; }
 @keyframes pulseCursor { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:1}50%{transform:translate(-50%,-50%) scale(1.15);opacity:.85} }
-@media (hover: hover) and (pointer: fine) and (min-width:1024px) { html, body { cursor:none } }
+@media (hover: hover) and (pointer: fine) and (min-width:1024px) { html, body { cursor:default } }
 
 /* ============================================
    CHIP BUTTONS
@@ -570,3 +642,75 @@ footer {
   text-align:center;
   margin-top:auto;
 }
+
+/* ============================================
+  GITHUB STATS DATE STYLLING
+============================================= */
+.date-input {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 14px;
+  width: 140px;
+}
+
+.react-datepicker {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background: linear-gradient(135deg,var(--accent),var(--accent-2));
+  color: #fff;
+}
+
+.react-datepicker__header {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+.react-datepicker {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  color: var(--text) !important;
+  box-shadow: var(--shadow) !important;
+}
+
+.react-datepicker__header {
+  background: var(--surface-2) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.react-datepicker__day {
+  color: var(--text) !important;
+}
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background: linear-gradient(135deg,var(--accent),var(--accent-2)) !important;
+  color: #fff !important;
+}
+.react-datepicker__current-month,
+.react-datepicker-year-header {
+  color: var(--text) !important;
+}
+.react-datepicker__month-dropdown,
+.react-datepicker__year-dropdown {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+}
+@keyframes slideFill {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
