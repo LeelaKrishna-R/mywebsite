@@ -394,6 +394,37 @@ html[data-theme='light'] :not(pre) > code { background: #f6f8fa; color: #24292f;
 .blog-list { display:flex; flex-direction:column; gap:12px }
 .blog-meta.collapsed { max-height: 0; opacity: 0; overflow: hidden }
 .blog-meta.expanded { max-height: 200px; opacity: 1; margin-top: 10px }
+.blog-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  opacity: 0.9;
+}
+
+.blog-close:hover {
+  background: var(--surface);
+  color: var(--accent);
+  transform: scale(1.08);
+  opacity: 1;
+}
+
+.blog-close.scrolled {
+  opacity: 0.55;
+}
 
 /* ============================================
    SPOTIFY TILE

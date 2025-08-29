@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getAllPosts, getPostBySlug } from "../../../lib/posts";
+import BlogCloseButton from "../../../components/BlogCloseButton";
+import BackToTop from "../../../components/BackToTop";
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -10,19 +12,23 @@ export default async function BlogPost({ params }) {
   const post = await getPostBySlug(params.slug);
 
   return (
-    <main className="container mx-auto px-4 py-10">
-      <article className="max-w-3xl mx-auto p-8 rounded-2xl shadow-lg bg-zinc-900/50 backdrop-blur">
-        {/* Back Button */}
-        <Link
-          href="/blog"
-          className="inline-block mb-6 text-purple-400 hover:text-purple-300 transition-colors"
-        >
-          ← Back to Blogs
-        </Link>
+    <main className="container mx-auto px-4 py-10 relative">
+      {/* Blog Header (like navbar) */}
+      <header className="sticky top-0 z-40 bg-[var(--surface)] border-b border-[var(--border)] 
+                         flex items-center justify-between px-4 py-3 backdrop-blur">
+        <h1 className="text-xl font-bold truncate text-[var(--text)]">{post.title}</h1>
+        <BlogCloseButton />
+      </header>
 
-        <h1 className="text-4xl font-extrabold mb-2">{post.title}</h1>
-        <p className="text-sm text-gray-400 mb-8">
-          {post.date} · {post.author} · {post.readingTime}
+      {/* Blog Content */}
+      <article className="max-w-3xl mx-auto p-8 rounded-2xl shadow-lg bg-zinc-900/50 backdrop-blur mt-6 relative">
+        <p className="text-sm mb-8">
+          <Link
+            href={`/blog/${post.slug}`}
+            className="text-[var(--accent)] hover:text-[var(--accent-2)] underline-offset-4 hover:underline transition-colors"
+          >
+            {post.date} · {post.author} · {post.readingTime}
+          </Link>
         </p>
 
         <div
@@ -35,6 +41,9 @@ export default async function BlogPost({ params }) {
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
       </article>
+
+      {/* Back to Top Button */}
+      <BackToTop />
     </main>
   );
 }
