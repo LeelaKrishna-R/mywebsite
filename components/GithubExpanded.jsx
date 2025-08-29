@@ -21,10 +21,8 @@ export default function GitHubExpanded() {
   const [to, setTo] = useState(null);
   const [filterActive, setFilterActive] = useState(false);
 
-  // Animate on mount
   useEffect(() => setMounted(true), []);
 
-  // Escape → clear filters OR exit
   const handleEsc = useCallback(
     (e) => {
       if (e.key === "Escape") {
@@ -40,6 +38,7 @@ export default function GitHubExpanded() {
     },
     [from, to, filterActive, router]
   );
+
   useEffect(() => {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
@@ -47,7 +46,7 @@ export default function GitHubExpanded() {
 
   // load user profile
   useEffect(() => {
-    fetch(`https://api.github.com/users/${USER}`)
+    fetch("/api/github?type=user")
       .then((r) => r.json())
       .then(setUser)
       .catch(() => {});
@@ -56,9 +55,7 @@ export default function GitHubExpanded() {
   // load repos & languages
   useEffect(() => {
     async function load() {
-      const res = await fetch(
-        `https://api.github.com/users/${USER}/repos?per_page=100&sort=updated`
-      );
+      const res = await fetch("/api/github?type=repos");
       const data = await res.json();
       if (!Array.isArray(data)) return;
 
@@ -89,9 +86,7 @@ export default function GitHubExpanded() {
       const allCommits = [];
       for (let repo of repos.slice(0, 6)) {
         try {
-          const res = await fetch(
-            `https://api.github.com/repos/${USER}/${repo.name}/commits?per_page=15`
-          );
+          const res = await fetch(`/api/github?type=commits&repo=${repo.name}`);
           const data = await res.json();
           if (Array.isArray(data)) {
             data.forEach((c) => {
@@ -112,7 +107,6 @@ export default function GitHubExpanded() {
     if (repos.length) loadCommits();
   }, [repos]);
 
-  // filter commits
   const filteredCommits = commits.filter((c) => {
     if (selectedRepo !== "all" && c.repo !== selectedRepo) return false;
     if (!filterActive) return true;
@@ -120,8 +114,7 @@ export default function GitHubExpanded() {
     return (!from || d >= from) && (!to || d <= to);
   });
 
-  // theme for heatmap
-  const calendarTheme = {
+  const calendarTheme = { 
     dark: ["#1e1e24", "#7c3aed", "#8b5cf6", "#a78bfa", "#c4b5fd"],
     light: ["#f3f4f7", "#6366f1", "#4f46e5", "#7c3aed", "#a78bfa"],
   };
@@ -134,12 +127,7 @@ export default function GitHubExpanded() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 30 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          style={{
-            display: "grid",
-            gap: 48,
-            lineHeight: 1.6,
-            position: "relative",
-          }}
+          style={{ display: "grid", gap: 48, lineHeight: 1.6, position: "relative" }}
         >
           {/* TOP SECTION: CLOSE + HEADER */}
           <div className="github-top">
@@ -170,14 +158,7 @@ export default function GitHubExpanded() {
             {/* COMMITS */}
             <section>
               <h2 style={{ marginBottom: 12 }}>Recent Commits</h2>
-              <div
-                style={{
-                  display: "flex",
-                  gap: 12,
-                  marginBottom: 16,
-                  flexWrap: "wrap",
-                }}
-              >
+              <div style={{ display: "flex", gap: 12, marginBottom: 16, flexWrap: "wrap" }}>
                 <select
                   value={selectedRepo}
                   onChange={(e) => setSelectedRepo(e.target.value)}
@@ -212,12 +193,7 @@ export default function GitHubExpanded() {
                   shouldCloseOnEsc
                   className="filter-input"
                 />
-                <button
-                  onClick={() => setFilterActive(true)}
-                  className="btn-accent"
-                >
-                  Filter
-                </button>
+                <button onClick={() => setFilterActive(true)} className="btn-accent">Filter</button>
                 {filterActive && (
                   <button
                     onClick={() => {
@@ -234,24 +210,12 @@ export default function GitHubExpanded() {
 
               {filteredCommits.slice(0, 8).map((c, i) => (
                 <div key={i} style={{ marginBottom: 16 }}>
-                  <a
-                    href={c.url}
-                    target="_blank"
-                    rel="noopener"
-                    style={{ fontWeight: 600, color: "var(--accent)" }}
-                  >
+                  <a href={c.url} target="_blank" rel="noopener" style={{ fontWeight: 600, color: "var(--accent)" }}>
                     {c.msg}
                   </a>
                   <div className="small muted">
                     {c.repo} · {new Date(c.date).toLocaleString()} ·{" "}
-                    <code
-                      style={{
-                        fontSize: 12,
-                        background: "var(--surface-2)",
-                        padding: "2px 6px",
-                        borderRadius: 6,
-                      }}
-                    >
+                    <code style={{ fontSize: 12, background: "var(--surface-2)", padding: "2px 6px", borderRadius: 6 }}>
                       {c.sha}
                     </code>
                   </div>
@@ -261,7 +225,6 @@ export default function GitHubExpanded() {
 
             {/* SIDEBAR */}
             <aside style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-              {/* REPOS */}
               <section>
                 <h3 style={{ marginBottom: 8 }}>Recent Repositories</h3>
                 <ul style={{ margin: 0, paddingLeft: 16 }}>
@@ -271,30 +234,23 @@ export default function GitHubExpanded() {
                         {r.name}
                       </a>{" "}
                       <span className="small muted">
-                        {r.language ? `· ${r.language}` : ""} · updated{" "}
-                        {new Date(r.updated_at).toLocaleDateString()}
+                        {r.language ? `· ${r.language}` : ""} · updated {new Date(r.updated_at).toLocaleDateString()}
                       </span>
                     </li>
                   ))}
                 </ul>
               </section>
 
-              {/* LANGUAGES */}
               <section>
                 <h3 style={{ marginBottom: 8 }}>Languages Used</h3>
                 {languages.map((l) => (
                   <div key={l.lang} className="github-lang">
                     <div className="github-lang-label">
                       <span>{l.lang}</span>
-                      <span className="small muted">
-                        {l.percent.toFixed(1)}%
-                      </span>
+                      <span className="small muted">{l.percent.toFixed(1)}%</span>
                     </div>
                     <div className="github-lang-track">
-                      <div
-                        className="github-lang-fill"
-                        style={{ width: `${l.percent}%` }}
-                      />
+                      <div className="github-lang-fill" style={{ width: `${l.percent}%` }} />
                     </div>
                   </div>
                 ))}
@@ -305,56 +261,6 @@ export default function GitHubExpanded() {
           {/* CONTRIBUTIONS */}
           <section>
             <h2 style={{ marginBottom: 12 }}>Contributions</h2>
-            <div
-              style={{
-                display: "flex",
-                gap: 12,
-                marginBottom: 16,
-                flexWrap: "wrap",
-              }}
-            >
-              <DatePicker
-                selected={from}
-                onChange={(date) => setFrom(date)}
-                placeholderText="From date"
-                dateFormat="yyyy-MM-dd"
-                showYearDropdown
-                showMonthDropdown
-                dropdownMode="select"
-                shouldCloseOnEsc
-                className="filter-input"
-              />
-              <DatePicker
-                selected={to}
-                onChange={(date) => setTo(date)}
-                placeholderText="To date"
-                dateFormat="yyyy-MM-dd"
-                showYearDropdown
-                showMonthDropdown
-                dropdownMode="select"
-                shouldCloseOnEsc
-                className="filter-input"
-              />
-              <button
-                onClick={() => setFilterActive(true)}
-                className="btn-accent"
-              >
-                Search
-              </button>
-              {filterActive && (
-                <button
-                  onClick={() => {
-                    setFrom(null);
-                    setTo(null);
-                    setFilterActive(false);
-                  }}
-                  className="btn-clear"
-                >
-                  Clear
-                </button>
-              )}
-            </div>
-
             <GitHubCalendar
               username={USER}
               hideTotalCount={true}

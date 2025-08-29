@@ -3,8 +3,6 @@ import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const USER = "LeelaKrishna-R";
-
 export default function GitHubCard() {
   const [user, setUser] = useState(null);
   const [repos, setRepos] = useState(null);
@@ -16,14 +14,11 @@ export default function GitHubCard() {
     async function load() {
       try {
         const [uRes, rRes] = await Promise.all([
-          fetch(`https://api.github.com/users/${USER}`, { signal: ctrl.signal, cache: "no-store" }),
-          fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=updated`, {
-            signal: ctrl.signal,
-            cache: "no-store",
-          }),
+          fetch("/api/github?type=user", { signal: ctrl.signal, cache: "no-store" }),
+          fetch("/api/github?type=repos", { signal: ctrl.signal, cache: "no-store" }),
         ]);
 
-        if (!uRes.ok || !rRes.ok) throw new Error("GitHub API rate-limited or unreachable");
+        if (!uRes.ok || !rRes.ok) throw new Error("GitHub API failed");
         const [uData, rData] = await Promise.all([uRes.json(), rRes.json()]);
         setUser(uData);
         setRepos(Array.isArray(rData) ? rData : []);
@@ -86,39 +81,37 @@ export default function GitHubCard() {
         </div>
 
         {err ? (
-          <div className="small muted">Couldn’t load stats (likely rate-limited). Try again later.</div>
+          <div className="small muted">Couldn’t load stats. Try again later.</div>
         ) : (
-          <>
-            <div
-              className="muted"
-              style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, fontSize: 14 }}
-            >
-              <div>Public repos</div>
-              <div style={{ textAlign: "right", fontWeight: 700 }}>
-                {user ? user.public_repos : "—"}
-              </div>
-
-              <div>Followers</div>
-              <div style={{ textAlign: "right", fontWeight: 700 }}>
-                {user ? user.followers : "—"}
-              </div>
-
-              <div>Following</div>
-              <div style={{ textAlign: "right", fontWeight: 700 }}>
-                {user ? user.following : "—"}
-              </div>
-
-              <div>Total stars</div>
-              <div style={{ textAlign: "right", fontWeight: 700 }}>
-                {totals ? totals.stars : "—"}
-              </div>
-
-              <div>Total forks</div>
-              <div style={{ textAlign: "right", fontWeight: 700 }}>
-                {totals ? totals.forks : "—"}
-              </div>
+          <div
+            className="muted"
+            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, fontSize: 14 }}
+          >
+            <div>Public repos</div>
+            <div style={{ textAlign: "right", fontWeight: 700 }}>
+              {user ? user.public_repos : "—"}
             </div>
-          </>
+
+            <div>Followers</div>
+            <div style={{ textAlign: "right", fontWeight: 700 }}>
+              {user ? user.followers : "—"}
+            </div>
+
+            <div>Following</div>
+            <div style={{ textAlign: "right", fontWeight: 700 }}>
+              {user ? user.following : "—"}
+            </div>
+
+            <div>Total stars</div>
+            <div style={{ textAlign: "right", fontWeight: 700 }}>
+              {totals ? totals.stars : "—"}
+            </div>
+
+            <div>Total forks</div>
+            <div style={{ textAlign: "right", fontWeight: 700 }}>
+              {totals ? totals.forks : "—"}
+            </div>
+          </div>
         )}
       </Link>
     </motion.div>
