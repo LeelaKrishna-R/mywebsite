@@ -20,7 +20,7 @@ export const metadata = {
     title: "Leelakrishna Ravuri — Portfolio",
     description: "AI graduate student and software developer.",
     url: "https://krishnar.xyz/",
-    siteName: "KrishnaR Portfolio",
+    siteName: "Leelakrishna Ravuri",
     images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }]
   },
   twitter: {
@@ -30,6 +30,16 @@ export const metadata = {
     images: ["/twitter-image.png"]
   },
   manifest: "/manifest.webmanifest",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0f0f10" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f7f8" }
+  ]
 };
 
 export default function RootLayout({ children }) {
@@ -50,12 +60,10 @@ export default function RootLayout({ children }) {
       </head>
       <ThemeProvider>
         <BodyWrapper>
-          {/* Wrap children in main tag for proper footer placement */}
           <main className="main-content">
             {children}
           </main>
 
-          {/* Footer */}
           <footer className="site-footer">
             <div className="footer-inner">
               <p>
@@ -75,10 +83,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-
-export const viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0f0f10" },
-    { media: "(prefers-color-scheme: light)", color: "#f7f7f8" }
-  ]
-};
