@@ -16,5 +16,3 @@
 * [ ] 🟢 Add favicon
 * [ ] 🟢 Make more Ghibli images and put them on website
 * [x] 🟢 Adjust theme switch toggle to nav bar for mobile users ✅
-
-Want me to switch to showing **only the open items** next time, or keep this full view?
