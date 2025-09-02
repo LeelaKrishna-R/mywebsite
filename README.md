@@ -1,6 +1,6 @@
 # 🌐 [Personal Portfolio](https://krishnar.xyz)
 
-This is my personal portfolio website built with **Next.js 14**, **React**, and custom **Dracula-inspired theming**.  
+This is my personal portfolio website built with **Next.js 14**, **React**, and custom **Dracula-inspired theme**.  
 It showcases my skills, projects, blog posts, and integrates with GitHub and Spotify APIs for dynamic content.
 
 - 🚀 Deployed on [Vercel](https://vercel.com).
@@ -162,4 +162,9 @@ Feel free to fork and adapt it for your own portfolio!
 - I do have some issues time to time which can be found [here](https://github.com/LeelaKrishna-R/mywebsite/issues)
 -  if you have a solution to my issue, feel free to open a [PR](https://github.com/LeelaKrishna-R/mywebsite/pulls)
 
-👨‍💻 Built with care by **Leelakrishna Ravuri**.
+---
+
+## ✈️ Todo 
+I will update my todo list time to time but you can see what's cooking [here](https://github.com/LeelaKrishna-R/mywebsite/blob/main/todo/todo.md)
+
+---
