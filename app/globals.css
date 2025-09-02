@@ -265,6 +265,40 @@ html[data-theme='light'] .nav .menu-btn:hover {
 .meta .m { background:var(--surface-2); border:1px solid var(--border); padding:12px; border-radius:12px }
 .meta .m b { display:block; font-size:12px; color:var(--muted) }
 
+/* ============================================
+   GITHUB TILE ON HOME PAGE
+=============================================*/
+
+/* Clip any hover effect to rounded corners */
+.clip-rounded {
+  border-radius: var(--radius);
+  position: relative;
+  overflow: clip;
+}
+@supports not (overflow: clip) {
+  .clip-rounded { overflow: hidden; }  /* Safari/old browsers */
+}
+
+/* Glow that respects rounding */
+.hover-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;                /* hug the border */
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .25s ease, box-shadow .25s ease;
+  box-shadow:
+    0 0 0 1px rgba(189,147,249,.45),
+    0 0 36px rgba(189,147,249,.50),
+    0 0 80px rgba(189,147,249,.30);
+}
+.hover-glow:hover::before { opacity: 1; }
+
+/* Ensure hero-card is a proper clipping container */
+.hero-card { position: relative; }
+
+
 @media (min-width:768px) {
   .hero-grid { grid-template-columns:1.1fr .9fr; gap:40px }
   .title { font-size:clamp(32px,5vw,52px) }

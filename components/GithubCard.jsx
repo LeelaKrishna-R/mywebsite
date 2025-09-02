@@ -10,14 +10,12 @@ export default function GitHubCard() {
 
   useEffect(() => {
     const ctrl = new AbortController();
-
-    async function load() {
+    (async () => {
       try {
         const [uRes, rRes] = await Promise.all([
           fetch("/api/github?type=user", { signal: ctrl.signal, cache: "no-store" }),
           fetch("/api/github?type=repos", { signal: ctrl.signal, cache: "no-store" }),
         ]);
-
         if (!uRes.ok || !rRes.ok) throw new Error("GitHub API failed");
         const [uData, rData] = await Promise.all([uRes.json(), rRes.json()]);
         setUser(uData);
@@ -25,41 +23,36 @@ export default function GitHubCard() {
       } catch (e) {
         if (e.name !== "AbortError") setErr(e.message || "Failed to load GitHub data");
       }
-    }
-
-    load();
+    })();
     return () => ctrl.abort();
   }, []);
 
   const totals = useMemo(() => {
     if (!repos) return null;
-    let stars = 0;
-    let forks = 0;
-    const langs = new Map();
-
+    let stars = 0, forks = 0;
     for (const r of repos) {
       stars += r.stargazers_count || 0;
       forks += r.forks_count || 0;
-      const lang = r.language || "Other";
-      langs.set(lang, (langs.get(lang) || 0) + 1);
     }
-
-    const topLangs = Array.from(langs.entries())
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 4);
-
-    return { stars, forks, topLangs };
+    return { stars, forks };
   }, [repos]);
 
   return (
     <motion.div
-      whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(124, 58, 237, 0.4), 0 0 40px rgba(124, 58, 237, 0.2)", borderColor: "var(--accent)" }}
+      whileHover={{
+        scale: 1.03,
+        // ✅ visible glow lives here; wrapper now has the same radius
+        boxShadow:
+          "0 0 22px rgba(124,58,237,.45), 0 0 50px rgba(124,58,237,.25)",
+        borderColor: "var(--accent)",
+      }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 250, damping: 15 }}
-      style={{ maxWidth: 420, width: "100%" }}
+      style={{ maxWidth: 420, width: "100%", borderRadius: 16 }}   // ✅ radius fixes the corners
     >
       <Link
         href="/github"
+        className="clip-rounded hover-glow"   // ✅ keeps CSS-based glow too
         style={{
           display: "grid",
           gap: 12,
@@ -72,7 +65,8 @@ export default function GitHubCard() {
           textDecoration: "none",
           color: "inherit",
           cursor: "pointer",
-          transition: "all 0.2s ease",
+          transition: "all .25s ease",
+          position: "relative",
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
