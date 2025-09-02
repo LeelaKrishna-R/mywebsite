@@ -165,6 +165,7 @@ Feel free to fork and adapt it for your own portfolio!
 ---
 
 ## ✈️ Todo 
-I will update my todo list time to time but you can see what's cooking [here](https://github.com/LeelaKrishna-R/mywebsite/blob/main/todo/todo.md)
+- I will update my todo list time to time 
+- You can see the known issues, bugs, improvements planned [here](https://github.com/LeelaKrishna-R/mywebsite/blob/main/todo/todo.md)
 
 ---
