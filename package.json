@@ -24,7 +24,7 @@
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.542.0",
-    "next": "15.5.9",
+    "next": "15.5.14",
     "node-fetch": "^3.3.2",
     "npm-check-updates": "^18.0.3",
     "open": "^10.2.0",
